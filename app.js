@@ -5,9 +5,8 @@ var logger = require("morgan");
 var cors = require("cors");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var graphRouter = require("./routes/graph");
-var searchRouter = require("./routes/search");
+var graphRouter = require("./routes/api/graph");
+var searchRouter = require("./routes/api/search");
 
 var app = express();
 
@@ -19,7 +18,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/graph", graphRouter);
 app.use("/search", searchRouter);
 
