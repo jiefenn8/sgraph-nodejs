@@ -1,20 +1,4 @@
 var _ = require("lodash");
-var neo4j = require("../neo4j.js");
-
-//Todo: Add depth function to return detailed graph
-//Todo: Decouple functions and files for refactoring
-function getJSONResponse(key, depth) {
-  var keyword = key;
-  var query =
-    "MATCH (s0:Resource)-[r1]-(s1:Resource) \
-                WHERE s0.name =~ {keyword}\
-                WITH s0, {rel: type(r1), name: s1.name} AS scName \
-                WITH {name: s0.name, childs: collect(scName)} AS subject \
-                RETURN {resources: collect(subject)[..{limit}]} AS result";
-
-  var graph = neo4j.getQueryResults(query, keyword, 0, transverse);
-  return graph;
-}
 
 function appendToResponse(prev, obj, nodes, rels) {
   //Set group to id main nodes
@@ -42,10 +26,10 @@ function appendToResponse(prev, obj, nodes, rels) {
 }
 
 //Using Breadth First Search Traversal algorithm
-function transverse(resource, nodes, rels) {
+function transverse(result, nodes, rels) {
   var queue = [],
-    prev = resource,
-    next = resource;
+    prev = result,
+    next = result;
   while (next) {
     if (next.parent !== undefined) {
       prev = next.parent;
@@ -54,9 +38,9 @@ function transverse(resource, nodes, rels) {
 
     appendToResponse(prev, next, nodes, rels);
 
-    if (next.childs !== undefined) {
+    if (next.children !== undefined) {
       queue.push({ parent: next });
-      next.childs.forEach(child => {
+      next.children.forEach(child => {
         queue.push(child);
       });
     }
@@ -64,4 +48,17 @@ function transverse(resource, nodes, rels) {
   }
 }
 
-exports.getJSONResponse = getJSONResponse;
+function generateJSON(queryResponse) {
+  var nodes = [],
+    rels = [];
+  //currently expect only one record from a single query
+  var result = queryResponse.records[0].get("results");
+  for (var i = 0, n = result.length; i < n; i++) {
+    transverse(result[i], nodes, rels);
+  }
+  return { nodes: nodes, links: rels };
+}
+
+exports.appendToResponse = appendToResponse;
+exports.transverse = transverse;
+exports.generateJSON = generateJSON;

@@ -4,23 +4,17 @@ var driver = neo4j.driver(
   neo4j.auth.basic("neo4j", "1234")
 );
 
-function getQueryResults(query, keyword, depth, callback) {
+function getQueryResults(query, keyword, depth, skip, limit, callback) {
   var session = driver.session();
   return session
-    .run(query, { limit: 10, keyword: "(?i).*" + keyword + ".*" })
-    .then(results => {
+    .run(query, {
+      skip: skip,
+      limit: limit,
+      keyword: "(?i).*" + keyword + ".*"
+    })
+    .then(queryResponse => {
       session.close();
-      var nodes = [],
-        rels = [];
-      //For each result entry
-      results.records.forEach(res => {
-        var result = res.get("result");
-        var resources = result.resources;
-        for (var i = 0, n = resources.length; i < n; i++) {
-          callback(resources[i], nodes, rels);
-        }
-      });
-      return { nodes: nodes, links: rels };
+      return callback(queryResponse);
     });
 }
 
