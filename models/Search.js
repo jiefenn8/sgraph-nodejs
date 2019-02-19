@@ -1,7 +1,7 @@
 var neo4j = require("../neo4j.js");
 var common = require("../common.js");
 
-function getJSONResponse(key, depth) {
+function getJSONResponse(key, start, limit, depth) {
   var keyword = key;
   var query =
     "MATCH (s:Resource)-[r]-(o)\
@@ -14,9 +14,9 @@ function getJSONResponse(key, depth) {
   var graph = neo4j.getQueryResults(
     query,
     keyword,
-    0,
-    0,
-    10,
+    depth,
+    start,
+    limit,
     common.generateJSON
   );
   return graph;

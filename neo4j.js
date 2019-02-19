@@ -8,8 +8,8 @@ function getQueryResults(query, keyword, depth, skip, limit, callback) {
   var session = driver.session();
   return session
     .run(query, {
-      skip: skip,
-      limit: limit,
+      skip: skip !== undefined ? start : 0,
+      limit: limit !== undefined ? limit : 10,
       keyword: "(?i).*" + keyword + ".*"
     })
     .then(queryResponse => {
