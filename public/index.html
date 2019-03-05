@@ -1,11 +1,103 @@
 <html>
   <head>
-    <title>Express</title>
+    <title>sgraph-nodejs API</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
 
   <body>
     <h1>sgraph-nodejs API</h1>
     <p>/search</p>
+    <p>&nbsp;?q=<font color="red">[search keyword]</font></p>
+    <p>
+      &nbsp;&skip=<font color="red"
+        >[number of results to skip]</font><font color="blue">(Default: 0)(OPTIONAL)</font
+      >
+    </p>
+    <p>
+      &nbsp;&limit=<font color="red"
+        >[max number of results in a response]</font><font color="blue">(Default: 10)(OPTIONAL)</font
+      >
+    </p>
+    <p>
+      &nbsp;&depth=<font color="red"
+        >[Depth of additional result's related nodes and relationship
+        detail]</font><font color="blue">(Default: Not implemented yet)(OPTIONAL)</font>
+    </p>
+    </p>
+    <h2>Example</h2>
+    <h3>Data Table (Abstract from graph)</h3>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Chocolate Chip</td>
+        <td>In stock</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Ginger Snap</td>
+        <td>Out of stock</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Sugar Cookie</td>
+        <td>Out of stock</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Moravian Spice</td>
+        <td>In stock</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Afghan Cookie</td>
+        <td>In stock</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>ANZAC Biscuit</td>
+        <td>Out of stock</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>Fortune cookie</td>
+          <td>Out of stock</td>
+        </tr>
+
+
+    </table>
+    <p>
+      <h3>Query</h3>
+      localhost:3000/search?q=<font color="red">out</font>&skip=<font color="red">1</font>&limit=<font color="red">3</font>
+    </p>
+    <p>
+      <h3>Result (Abstract from JSON)</h3>
+      <table border="1">
+          <tr>
+            <th>Id</th>
+            <th>Result</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Out of stock</td>
+            <td>Sugar Cookie</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Out of stock</td>
+            <td>ANZAC Biscuit</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Out of stock</td>
+            <td>Fortune Cookie</td>
+          </tr>
+        </table>
+    </p>
   </body>
 </html>

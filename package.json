@@ -1,6 +1,8 @@
 {
   "name": "sgraph-nodejs",
   "version": "0.0.0",
+  "homepage": "https://github.com/jiefenn8/sgraph-nodejs",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
