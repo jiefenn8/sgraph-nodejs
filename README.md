@@ -8,7 +8,8 @@ Part of component (2/3) (PREPARE) of web and graph parent project [ws-projects](
 
 REST API implementation using Node.js and Express to provide web access to semantics graph data from a graph database. 
 
-Overview of sgraph-nodejs process
+Overview of sgraph-nodejs process:
+
 ![sgraph-nodejs](https://user-images.githubusercontent.com/42923689/53776628-78a27f80-3f5b-11e9-9c77-7813e5c8eada.png)
 
 ## Getting Started
@@ -30,8 +31,11 @@ These instructions will get you a copy of the project up and running on your loc
 	* :Resource must have the property:
 		*  	name - contains the value of that node
 
-What the Neo4J Graph should look like
+
+What the Neo4J Graph should look like:
+
 ![structure](https://user-images.githubusercontent.com/42923689/53781848-64687d80-3f6f-11e9-9f85-6d6062b25378.PNG)
+
 ### Running locally
 
 Clone the repository using terminal or cmd
@@ -40,7 +44,7 @@ cd <install directory of choice>
 git clone https://github.com/jiefenn8/sgraph-nodejs.git
 ```
 
-Edit the driver address to your Neo4J server in neo4j.js.
+Edit the driver address to your Neo4J server in neo4j.js
 ```
 var  driver  =  neo4j.driver(
 	"bolt://<your neo4j host address>",
@@ -55,7 +59,7 @@ npm install
 npm start
 ```
 
-Your app should now be running on [localhost:3000](http://localhost:3000/) or through a different port configured in your system.
+Your app should now be running on default [localhost:3000](http://localhost:3000/) or through a different port if npm is configured in your system.
 
 ## Built With
 
